@@ -1,0 +1,15 @@
+.cart-details h3{
+    text-align: center;
+    padding-left: 40px;
+}
+.cart-details button{
+    background-color: goldenrod;
+    width: 120px;
+    height: 30px;
+    border: 1px solid lightsalmon;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cart-details{
+    margin-left: 20px;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Cart.css';
 
 const Cart = (props) => {
     const cart = props.cart;
@@ -6,7 +7,7 @@ const Cart = (props) => {
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
-        total = total + product.price;
+        total = total + product.price * product.quantity;
     }
     let shipping = 0;
     if (total > 35) {
@@ -28,13 +29,16 @@ const Cart = (props) => {
     }
 
     return (
-        <div>
+        <div className='cart-details'>
             <h3>Order Summary</h3>
             <p>Items Ordered: {cart.length}</p>
             <p>Product Price: ${formatNumber(total)}</p>
             <p><small>Shipping Cost: ${shipping}</small></p>
             <p><small>VAT: ${formatNumber(vat)}</small></p>
             <p>Total Price: ${formatNumber(grandTotal)}</p>
+            {
+                props.children
+            }
         </div>
     );
 };
