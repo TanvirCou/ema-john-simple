@@ -1,25 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import fakeData from '../../fakeData';
 import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Shop = () => {
-    const first10 = fakeData.slice(0,10);
-    const[products, setProducts] = useState(first10);
+    const[products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [search, setSearch] = useState('');
+
+    useEffect(()=>{
+        fetch('http://localhost:5000/products?search='+search)
+        .then(res => res.json())
+        .then(data => setProducts(data))
+    }, [search]);
 
     useEffect(()=>{
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        const cartProduct = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
+        fetch('http://localhost:5000/productByKeys', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(productKeys)
         })
-        setCart(cartProduct);
+        .then(res => res.json())
+        .then(data => setCart(data))
+        /*if(products.length > 0){
+            const cartProduct = productKeys.map(key => {
+                const product = products.find(pd => pd.key === key);
+                product.quantity = savedCart[key];
+                return product;
+            })
+            setCart(cartProduct);
+        }*/
     }, [])
 
     const handleAddProduct = (product) =>{
@@ -39,10 +56,23 @@ const Shop = () => {
         setCart(newCart);
         addToDatabaseCart(product.key, count);
     }
-    return (
 
-        <div className='twin-container'>
+    const handleSearch = event => {
+        setSearch(event.target.value);
+    }
+
+    return (
+        <div>
+            <div className='product-search'>
+                <input type="search" onBlur={handleSearch} placeholder='Search' />
+            </div>
+            <div className='twin-container'>
             <div className="product-container">
+                {
+                    products.length === 0 && <div style={{textAlign:'center', marginTop:'200px'}}>
+                        <Spinner animation="border" variant="dark" />
+                    </div>
+                }
                 {
                     products.map(pd => <Product
                         key={pd.key} 
@@ -60,6 +90,8 @@ const Shop = () => {
                 </Cart>
             </div>
         </div>
+        </div>
+        
     );
 };
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { clearLocalShoppingCart, getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
-import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
@@ -19,12 +19,15 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
 
-        const cartProduct = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
+        fetch('http://localhost:5000/productByKeys', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(productKeys)
         })
-        setCart(cartProduct);
+        .then(res => res.json())
+        .then(data => setCart(data))
     }, [])
 
     const handleRemoveProduct = (productKey) => {
@@ -40,6 +43,11 @@ if(orderPlaced){
     return (
         <div className='twin-container'>
             <div className='product-container'>
+            {
+                    cart.length === 0 && <div style={{textAlign:'center', marginTop:'200px'}}>
+                        <Spinner animation="border" variant="dark" />
+                    </div>
+                }
                 {
                     cart.map(pd => <ReviewItem 
                         handleRemoveProduct={handleRemoveProduct}

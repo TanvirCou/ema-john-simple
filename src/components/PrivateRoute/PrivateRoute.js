@@ -9,7 +9,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation();
 
     return (
-        loggedInUser.email ? children : 
+        (loggedInUser.email || sessionStorage.getItem('token'))? children : 
         <Navigate to='/login' state={{ from: location }} replace ></Navigate>
 
         
