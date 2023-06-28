@@ -7,6 +7,7 @@ import PaymentProcess from '../PaymentProcess/PaymentProcess';
 
 const Shipment = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  console.log(loggedInUser);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   const [shippingData, setShippingData] = useState(null);
@@ -24,7 +25,7 @@ const Shipment = () => {
       orderTime: new Date() 
     };
 
-    fetch('http://localhost:5000/addOrder', {
+    fetch('https://ema-john-simple-server-xi.vercel.app/addOrder', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -43,24 +44,27 @@ const Shipment = () => {
   console.log(watch("example"));
 
   return (
-    <div className="row">
-      <div style={{display: shippingData ? 'none' : 'block'}} className="col-md-6">
-        <form className='ship-form' onSubmit={handleSubmit(onSubmit)}>
-
+    <div className="d-flex justify-content-center">
+      <div style={{display: shippingData ? 'none' : 'block'}} className='mt-4'>
+        <form className='ship-form shadow p-3 mb-5 bg-white rounded' onSubmit={handleSubmit(onSubmit)}>
+          <h3 className='text-brand mb-3 ml-2'>Shipment Form:</h3>
           <input defaultValue={loggedInUser.name} {...register("name", { required: true })} placeholder='Your Name' />
           {errors.name && <span className='error'>Name is required</span>}
+          <br />
           <input defaultValue={loggedInUser.email} {...register("email", { required: true })} placeholder='Your Email' />
           {errors.email && <span className='error'>Email is required</span>}
+          <br />
           <input {...register("address", { required: true })} placeholder='Your Address' />
           {errors.address && <span className='error'>Address is required</span>}
+          <br />
           <input {...register("phone", { required: true })} placeholder='Your Phone' />
           {errors.phone && <span className='error'>Phone is required</span>}
-
-          <input style={{ cursor: 'pointer' }} type="submit" />
+          <br />
+          <input className='btn-login' style={{ cursor: 'pointer' }} type="submit" />
         </form>
       </div>
-      <div style={{display: shippingData ? 'block' : 'none'}} className="col-md-6">
-        <h3>Please Pay</h3>
+        <div style={{display: shippingData ? 'block' : 'none'}} className='col-md-4 shadow p-3 bg-white rounded mt-4'>
+        <h3 className='text-brand mb-3'>Please Pay:</h3>
         <PaymentProcess handlePayment={handlePaymentSuccess}></PaymentProcess>
       </div>
     </div>

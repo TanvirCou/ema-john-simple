@@ -1,0 +1,94 @@
+.account-info{
+    width: 400px;
+}
+.login-form {
+    width: 400px;
+}
+.account-info h3 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+.account-info input {
+    width: 330px;
+    border: 0;
+    border-bottom: 1px solid #C5C5C5;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+}
+.underline-btn {
+    border: 0;
+    color: goldenrod;
+    background-color: white;
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
+.login-form p{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+}
+.social-part img{
+    height: 40px;
+    width: 40px;
+}
+.fb-part{
+    width: 330px;
+    border: 2px solid #C7C7C7;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+.google-part{
+    width: 330px;
+    border: 2px solid #C7C7C7;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    
+}
+.hr-lines:before{
+    content:" ";
+    display: block;
+    height: 1px;
+    width: 145px;
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    background: #ababab;
+  }
+  .hr-lines{
+    position: relative;
+    max-width: 500px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .hr-lines:after{
+    content:" ";
+    height: 1px;
+    width: 138px;
+    background: #ababab;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 45px;
+  }
+  .error-msg {
+	text-align: left;
+	color: rgb(202, 36, 36);
+}
+.btn-login{
+    background-color: goldenrod;
+    border: 1px solid lightsalmon;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+

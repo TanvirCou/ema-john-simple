@@ -12,7 +12,7 @@ const Shop = () => {
     const [search, setSearch] = useState('');
 
     useEffect(()=>{
-        fetch('http://localhost:5000/products?search='+search)
+        fetch('https://ema-john-simple-server-xi.vercel.app/products?search='+search)
         .then(res => res.json())
         .then(data => setProducts(data))
     }, [search]);
@@ -20,7 +20,7 @@ const Shop = () => {
     useEffect(()=>{
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        fetch('http://localhost:5000/productByKeys', {
+        fetch('https://ema-john-simple-server-xi.vercel.app/productByKeys', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -61,6 +61,15 @@ const Shop = () => {
         setSearch(event.target.value);
     }
 
+    // Shuffle product
+    const shuffle = a => {
+        for (let i = a.length; i; i--) {
+            let j = Math.floor(Math.random() * i);
+            [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        }
+    }
+    shuffle(products);
+
     return (
         <div>
             <div className='product-search'>
@@ -85,7 +94,7 @@ const Shop = () => {
             <div className="cart-container">
                 <Cart cart={cart}>
                         <Link to={"/review"}>
-                            <button>Review Order</button>
+                            <button className='product-button'>Review Order</button>
                         </Link>
                 </Cart>
             </div>

@@ -9,7 +9,7 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/product/${productKey}`)
+        fetch(`https://ema-john-simple-server-xi.vercel.app/product/${productKey}`)
         .then(res => res.json())
         .then(data => {
             setProduct(data);

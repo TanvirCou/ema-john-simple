@@ -37,7 +37,7 @@ const SimpleCardForm = ({handlePayment}) => {
     <div>
       <form onSubmit={handleSubmit}>
         <CardElement />
-        <button type="submit" disabled={!stripe || !elements}>
+        <button type="submit" className='btn-pay mt-3 mb-2' disabled={!stripe || !elements}>
           Pay
         </button>
       </form>

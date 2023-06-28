@@ -19,7 +19,7 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
 
-        fetch('http://localhost:5000/productByKeys', {
+        fetch('https://ema-john-simple-server-xi.vercel.app/productByKeys', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -61,7 +61,7 @@ if(orderPlaced){
             </div>
             <div className='cart-container'>
                 <Cart cart={cart}>
-                    <button onClick={handleProceedCheckout} className='product-button'>Proceed Checkout</button>
+                    <button style={{width:'170px'}} onClick={handleProceedCheckout} className='product-button'>Proceed Checkout</button>
                 </Cart>
             </div>
         </div>

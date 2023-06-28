@@ -1,0 +1,11 @@
+.inventory-form input{
+    width: 250px;
+    margin: 3px 20px;
+}
+.inventory-form button{
+    width: 120px;
+    margin-left: 20px;
+}
+.inventory-form p span{
+    margin-left: 20px;
+}
