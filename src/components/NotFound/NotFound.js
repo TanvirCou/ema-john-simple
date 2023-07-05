@@ -8,4 +8,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;<h1>404!! Error!</h1>
+export default NotFound;
